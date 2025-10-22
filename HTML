@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitness & Diet Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f5f7fa;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    input, select, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .entry {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .summary {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-top: 20px;
+      border-left: 5px solid #00796b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fitness & Diet Tracker</h1>
+  </header>
+
+  <div class="container">
+    <h2>Log Workout</h2>
+    <input id="workout-type" type="text" placeholder="Workout type (e.g., Running)">
+    <input id="workout-duration" type="number" placeholder="Duration (mins)">
+    <button onclick="addWorkout()">Add Workout</button>
+    <div id="workout-list"></div>
+
+    <h2>Log Meal</h2>
+    <input id="meal-name" type="text" placeholder="Meal description (e.g., Chicken Salad)">
+    <input id="meal-calories" type="number" placeholder="Calories">
+    <button onclick="addMeal()">Add Meal</button>
+    <div id="meal-list"></div>
+
+    <div class="summary">
+      <h3>Daily Summary</h3>
+      <p>Total Workout Time: <span id="total-workout">0</span> mins</p>
+      <p>Total Calories: <span id="total-calories">0</span> kcal</p>
+    </div>
+  </div>
+
+  <script>
+    let totalWorkout = 0;
+    let totalCalories = 0;
+
+    function addWorkout() {
+      const type = document.getElementById('workout-type').value;
+      const duration = parseInt(document.getElementById('workout-duration').value);
+      if (!type || isNaN(duration)) return alert("Please enter valid workout info.");
+
+      totalWorkout += duration;
+
+      const entry = document.createElement('div');
+      entry.className = 'entry';
+      entry.textContent = `${type} - ${duration} mins`;
+      document.getElementById('workout-list').appendChild(entry);
+
+      document.getElementById('total-workout').textContent = totalWorkout;
+
+      document.getElementById('workout-type').value = '';
+      document.getElementById('workout-duration').value = '';
+    }
+
+    function addMeal() {
+      const meal = document.getElementById('meal-name').value;
+      const calories = parseInt(document.getElementById('meal-calories').value);
+      if (!meal || isNaN(calories)) return alert("Please enter valid meal info.");
+
+      totalCalories += calories;
+
+      const entry = document.createElement('div');
+      entry.className = 'entry';
+      entry.textContent = `${meal} - ${calories} kcal`;
+      document.getElementById('meal-list').appendChild(entry);
+
+      document.getElementById('total-calories').textContent = totalCalories;
+
+      document.getElementById('meal-name').value = '';
+      document.getElementById('meal-calories').value = '';
+    }
+  </script>
+</body>
+</html>
